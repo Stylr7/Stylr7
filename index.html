@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Region Activity Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg-glow bg-glow-a"></div>
+    <div class="bg-glow bg-glow-b"></div>
+
+    <main class="dashboard-shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">XLab Cloud Analytics</p>
+          <h1>Region Activity Dashboard</h1>
+          <p class="subtitle">
+            Monitor Olyx and JaroX gameplay across regions with live totals,
+            region performance trends, and ranked player breakdowns.
+          </p>
+        </div>
+
+        <div class="hero-tools">
+          <form id="workerConfig" class="worker-config">
+            <label>
+              Worker Base URL
+              <input id="baseUrl" type="url" placeholder="https://your-worker.workers.dev" required />
+            </label>
+            <button type="submit">Connect</button>
+          </form>
+
+          <section class="ui-controls panel" aria-label="View and font controls">
+            <div class="ui-control-group">
+              <span class="ui-label">Text Size</span>
+              <div class="ui-buttons">
+                <button type="button" class="ghost-btn" id="textDown">A−</button>
+                <button type="button" class="ghost-btn" id="textReset">Reset</button>
+                <button type="button" class="ghost-btn" id="textUp">A+</button>
+              </div>
+              <span class="ui-value" id="textValue">100%</span>
+            </div>
+
+            <div class="ui-control-group">
+              <span class="ui-label">Dashboard Zoom</span>
+              <div class="ui-buttons">
+                <button type="button" class="ghost-btn" id="zoomDown">−</button>
+                <button type="button" class="ghost-btn" id="zoomReset">Reset</button>
+                <button type="button" class="ghost-btn" id="zoomUp">+</button>
+              </div>
+              <span class="ui-value" id="zoomValue">100%</span>
+            </div>
+          </section>
+        </div>
+      </header>
+
+      <section class="stats-grid" id="statsGrid"></section>
+
+      <section class="panel controls-panel">
+        <div class="control-group search-wrap">
+          <label for="search">Search</label>
+          <input id="search" type="search" placeholder="Search region, location, or player" />
+        </div>
+
+        <div class="control-group">
+          <label for="gameFilter">Game Type</label>
+          <select id="gameFilter">
+            <option value="all">All Games</option>
+            <option value="olyx">Olyx</option>
+            <option value="jarox">JaroX</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="regionFilter">Region</label>
+          <select id="regionFilter">
+            <option value="all">All Regions</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="sortBy">Sort By</label>
+          <select id="sortBy">
+            <option value="region">Region Name</option>
+            <option value="score">Score</option>
+            <option value="plays">Total Plays</option>
+            <option value="player">Player Name</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="sortDir">Direction</label>
+          <select id="sortDir">
+            <option value="desc">Descending</option>
+            <option value="asc">Ascending</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="panel table-panel">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Region</th>
+                <th>Location</th>
+                <th>Game Type</th>
+                <th>Total Plays</th>
+                <th>Top Players</th>
+                <th>Highest Score</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+          <div id="tableState" class="table-state"></div>
+        </div>
+      </section>
+    </main>
+
+    <aside id="detailsDrawer" class="details-drawer" aria-hidden="true">
+      <div class="drawer-header">
+        <h2 id="drawerTitle">Region Details</h2>
+        <button id="closeDrawer" aria-label="Close details">✕</button>
+      </div>
+      <div id="drawerBody" class="drawer-body"></div>
+    </aside>
+
+    <div id="backdrop" class="backdrop" hidden></div>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
